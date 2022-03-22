@@ -6,6 +6,7 @@ import Dashboard from "./screens/dashboard/dashboard";
 import Login from "./screens/login/login";
 import Register from "./screens/register/register";
 import Navbar from "./components/navbar/navbar";
+import Profile from "./screens/profile/profile";
 
 const App = () => {
     return (
@@ -17,10 +18,13 @@ const App = () => {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/profile" element={<Profile/>}/>
                     </Routes>
                 </div>
             </BrowserRouter>
-            <ToastContainer />
+            <ToastContainer position="bottom-center" theme="colored"
+                            autoClose={3500} closeOnClick draggable
+                            pauseOnFocusLoss pauseOnHover />
         </>);
 };
 

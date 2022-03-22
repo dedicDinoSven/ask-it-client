@@ -57,11 +57,11 @@ const Register = () => {
     return (
         <div className="register-wrapper">
             <section className="register-form">
-                <InputField label="Last Name" type="text" id="lastName"
-                            name="lastName" value={data.lastName}
-                            onChange={onChange} />
                 <InputField label="First Name" type="text" id="firstName"
                             name="firstName" value={data.firstName}
+                            onChange={onChange} />
+                <InputField label="Last Name" type="text" id="lastName"
+                            name="lastName" value={data.lastName}
                             onChange={onChange} />
                 <InputField label="Email *" type="email" id="email"
                             name="email" value={data.email}
