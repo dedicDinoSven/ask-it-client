@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 60px;
 }
 .navbar-wrapper .logo {
@@ -15,16 +15,16 @@
   font-weight: 700;
   padding: 0 20px;
 }
-.navbar-wrapper .logo:hover {
-  color: #e7412c;
-}
 .navbar-wrapper .logo svg {
   width: 36px;
   height: 36px;
   color: #e7412c;
   margin-left: 5px;
 }
-.navbar-wrapper .logo svg:hover {
+.navbar-wrapper .logo:hover {
+  color: #e7412c;
+}
+.navbar-wrapper .logo:hover svg {
   color: #000;
 }
 .navbar-wrapper .navbar-links-container {
@@ -41,7 +41,7 @@
   margin-left: 15px;
 }
 .navbar-wrapper .navbar-links-container .navbar-link:hover {
-  color: #e7412c;
+  color: #4693f3;
 }
 .navbar-wrapper .navbar-links-container .navbar-link svg {
   width: 24px;
@@ -78,35 +78,138 @@
   }
 }
 
-.register-heading {
+.input-field-wrapper {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 16px 0;
+}
+.input-field-wrapper label {
+  margin-bottom: 3px;
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  text-align: center;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+.input-field-wrapper label.focused {
+  transform: translate(0px, -34px);
+  opacity: 1;
+  font-size: 18px;
+}
+.input-field-wrapper input {
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 12px 8px;
+}
+
+.button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+.button-wrapper.submit {
+  background-color: #4693f3;
+  border: 1px solid #4693f3;
+  color: #fff;
+}
+.button-wrapper:disabled {
+  background-color: #000;
+  border: 1px solid #000;
+  cursor: not-allowed;
+}
+
+.login-wrapper {
+  width: 630px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 40px 10px;
+}
+.login-wrapper .login-heading {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+}
+.login-wrapper .login-heading h1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.login-wrapper .login-heading h1 svg {
+  width: 40px;
+  height: 40px;
+  color: #e7412c;
+  margin-right: 5px;
+}
+.login-wrapper .login-heading p {
+  font-size: 20px;
+  opacity: 0.7;
+}
+.login-wrapper .login-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-wrapper {
+  width: 650px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px 40px;
+}
+.register-wrapper .register-heading {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-left: 10px;
+}
+.register-wrapper .register-heading div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.register-heading h1 {
+.register-wrapper .register-heading div h1 {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
-.register-heading h1 svg {
+.register-wrapper .register-heading div h1 svg {
+  width: 40px;
+  height: 40px;
+  color: #e7412c;
   margin-right: 5px;
 }
-.register-heading p {
-  color: #777777;
-  font-size: 20px;
+.register-wrapper .register-heading div p {
+  font-size: 24px;
+  opacity: 0.7;
 }
-
-.register-form form input {
-  margin-bottom: 10px;
-  border: 1px solid black;
-  border-radius: 3px;
-  width: 300px;
-  height: 30px;
-}
-.register-form form button {
-  height: 35px;
-  background-color: #4693f3;
+.register-wrapper .register-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 body {
@@ -129,6 +232,9 @@ body a {
 body form {
   display: flex;
   flex-direction: column;
+}
+body h1 {
+  font-size: 36px;
 }
 
 /*# sourceMappingURL=index.css.map */

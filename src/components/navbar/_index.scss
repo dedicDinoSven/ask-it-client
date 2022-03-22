@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid #ccc;
     margin-bottom: 60px;
 
     .logo {
@@ -14,17 +14,17 @@
         font-weight: 700;
         padding: 0 20px;
 
-        &:hover {
-            color: #e7412c;
-        }
-
         svg {
             width: 36px;
             height: 36px;
             color: #e7412c;
             margin-left: 5px;
+        }
 
-            &:hover {
+        &:hover {
+            color: #e7412c;
+
+            svg {
                 color: #000;
             }
         }
@@ -44,7 +44,7 @@
             margin-left: 15px;
 
             &:hover {
-                color: #e7412c;
+                color: #4693f3;
             }
 
             svg {

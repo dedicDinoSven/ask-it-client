@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { FaUser } from "react-icons/fa";
+import { FaUserPlus } from "react-icons/fa";
+import InputField from "../../components/inputField/inputField";
+import Button from "../../components/button/button";
+import Validation from "../../utils/validation";
 
 const Register = () => {
     const [data, setData] = useState({
@@ -27,11 +30,16 @@ const Register = () => {
         })));
     };
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
+        if (!Validation.validateEmail(data.email))
+            toast.error("Please enter valid email!");
 
-        if (data.password !== data.password2)
+        else if (!Validation.validatePasswordLength(data.password))
+            toast.error("Password must be 5 to 100 characters long!");
+
+        else if (data.password !== data.password2)
             toast.error("Passwords do not match!");
+
         else dispatch(register(data));
     };
 
@@ -47,32 +55,38 @@ const Register = () => {
     }, [user, isSuccess, hasError, message, navigate, dispatch]);
 
     return (
-        <>
-            <section className="register-heading">
-                <h1><FaUser /> Register</h1>
-                <p>Please create an account</p>
-            </section>
+        <div className="register-wrapper">
             <section className="register-form">
-                <form onSubmit={onSubmit}>
-                    <input type="text" id="firstName" name="firstName"
-                           value={data.firstName} onChange={onChange}
-                           placeholder="First Name" />
-                    <input type="text" id="lastName" name="lastName"
-                           value={data.lastName} onChange={onChange}
-                           placeholder="Last Name" />
-                    <input type="email" id="email" name="email"
-                           value={data.email} onChange={onChange}
-                           placeholder="Email *" />
-                    <input type="password" id="password" name="password"
-                           value={data.password} onChange={onChange}
-                           placeholder="Password *" />
-                    <input type="password" id="password2" name="password2"
-                           value={data.password2} onChange={onChange}
-                           placeholder="Confirm Password *" />
-                    <button type="submit">Submit</button>
-                </form>
+                <InputField label="Last Name" type="text" id="lastName"
+                            name="lastName" value={data.lastName}
+                            onChange={onChange} />
+                <InputField label="First Name" type="text" id="firstName"
+                            name="firstName" value={data.firstName}
+                            onChange={onChange} />
+                <InputField label="Email *" type="email" id="email"
+                            name="email" value={data.email}
+                            onChange={onChange} />
+                <InputField label="Password *" type="password" id="password"
+                            name="password" value={data.password}
+                            onChange={onChange} />
+                <InputField label="Confirm Password *" type="password"
+                            id="password2"
+                            name="password2" value={data.password2}
+                            onChange={onChange} />
             </section>
-        </>);
+            <section className="register-heading">
+                <div>
+                    <h1><FaUserPlus /> Register</h1>
+                    <p>Please create an account</p>
+                </div>
+                <Button onClick={handleSubmit} className="submit" label="Submit"
+                        style={{ marginBottom: "16px" }}
+                        disabled={!data.email || data.email === "" ||
+                        !data.password || data.password === ""
+                        || !data.password2 || data.password2 === ""}
+                />
+            </section>
+        </div>);
 };
 
 export default Register;
