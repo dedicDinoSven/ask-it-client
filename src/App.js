@@ -7,6 +7,7 @@ import Login from "./screens/login/login";
 import Register from "./screens/register/register";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./screens/profile/profile";
+import CreateQuestion from "./screens/createQuestion/createQuestion";
 
 const App = () => {
     return (
@@ -18,7 +19,9 @@ const App = () => {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/create-question"
+                               element={<CreateQuestion />} />
                     </Routes>
                 </div>
             </BrowserRouter>

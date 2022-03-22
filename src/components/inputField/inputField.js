@@ -1,22 +1,38 @@
 import React, { useState } from "react";
 
 const InputField = (props) => {
-    const [inputFocused, setInputFocused] = useState(false);
+    const [focus, setFocus] = useState({
+        textarea: false, input: false
+    });
 
     return (
-        <div className="input-field-wrapper">
+        <div className="input-field-wrapper" style={props?.style}>
             <label htmlFor={`${props?.id}`}
-                   className={inputFocused ? "focused" : ""}>
+                   className={focus ? "focused" : ""}>
                 {props?.label}
             </label>
-            <input type={props?.type} id={props?.id} name={props?.name}
-                   value={props?.value ?? ""} onChange={props?.onChange}
-                   disabled={props?.disabled ?? false}
-                   autoFocus={props?.autoFocus ?? false}
-                   onFocus={() => setInputFocused(true)}
-                   onBlur={(e) => {
-                       !e.target.value && setInputFocused(false);
-                   }} style={props?.style} />
+            {props?.type === "textarea" ?
+                <textarea rows={props?.rows} cols={props?.cols} id={props?.id}
+                          name={props?.name} value={props?.value}
+                          onChange={props?.onChange}
+                          disabled={props?.disabled ?? false}
+                          autoFocus={props?.autoFocus ?? false}
+                          onFocus={() => setFocus({ ...focus, textarea: true })}
+                          onBlur={(e) => {
+                              !e.target.value &&
+                              setFocus({ ...focus, textarea: false });
+                          }} /> :
+                <input type={props?.type} id={props?.id} name={props?.name}
+                       value={props?.value} onChange={props?.onChange}
+                       disabled={props?.disabled ?? false}
+                       autoFocus={props?.autoFocus ?? false}
+                       onFocus={() => setFocus({ ...focus, input: true })}
+                       onBlur={(e) => {
+                           !e.target.value &&
+                           setFocus({ ...focus, input: false });
+                       }}
+                      />
+            }
         </div>
     );
 };

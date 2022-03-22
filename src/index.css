@@ -7,6 +7,7 @@
   align-items: center;
   border-bottom: 1px solid #ccc;
   margin-bottom: 40px;
+  padding: 5px;
 }
 .navbar-wrapper .logo {
   display: flex;
@@ -31,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  list-style-type: none;
+  margin-right: 10px;
   padding: 0 20px;
 }
 .navbar-wrapper .navbar-links-container .navbar-link {
@@ -79,7 +80,7 @@
 }
 
 .input-field-wrapper {
-  width: 260px;
+  min-width: 260px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -101,7 +102,17 @@
   font-size: 18px;
 }
 .input-field-wrapper input {
+  min-width: 260px;
   font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 12px 8px;
+}
+.input-field-wrapper textarea {
+  min-width: 260px;
+  height: auto;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px 12px 8px;
@@ -253,6 +264,23 @@
 }
 .pagination-toolbar .pages .navigation-box:hover {
   background-color: #e7412c;
+}
+
+.create-question-wrapper {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+.create-question-wrapper .create-question-fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-wrapper {
@@ -443,9 +471,8 @@ body .app-wrapper {
   flex-direction: column;
   align-items: center;
   min-width: 100vw;
-  min-height: 100vh;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   margin-bottom: 50px;
 }
 body a {

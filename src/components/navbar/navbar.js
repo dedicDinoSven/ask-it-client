@@ -4,7 +4,8 @@ import {
     FaSignInAlt,
     FaSignOutAlt,
     FaUser,
-    FaUserPlus
+    FaUserPlus,
+    FaPlusCircle
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,6 +23,9 @@ const Navbar = () => {
             <div className="navbar-links-container">
                 {user ?
                     <>
+                        <Link to="/create-question" className="navbar-link">
+                            <FaPlusCircle/> Ask Question
+                        </Link>
                         <Link to="/profile" className="navbar-link">
                             <FaUser />
                             {(user.firstName || user.lastName)

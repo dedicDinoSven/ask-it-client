@@ -64,19 +64,22 @@ const Profile = () => {
                 {toEdit ? <>
                         <InputField label="First Name" type="text" id="firstName"
                                     name="firstName" value={data.firstName}
-                                    onChange={onChange}
-                                    style={{ marginLeft: "10px" }}
-                                    autoFocus={!!data.firstName} />
+                                    onChange={onChange} autoFocus={!!data.firstName}
+                                    style={{
+                                        marginLeft: "10px", width: "300px"
+                                    }} />
                         <InputField label="Last Name" type="text" id="lastName"
                                     name="lastName" value={data.lastName}
-                                    onChange={onChange}
-                                    style={{ marginLeft: "10px" }}
-
-                                    autoFocus={!!data.lastName} />
+                                    onChange={onChange} autoFocus={!!data.lastName}
+                                    style={{
+                                        marginLeft: "10px", width: "300px"
+                                    }} />
                         <InputField label="Email" type="email" id="email"
                                     name="email" value={data.email}
-                                    onChange={onChange}
-                                    autoFocus={!!data.email} />
+                                    onChange={onChange} autoFocus={!!data.email}
+                                    style={{
+                                        marginLeft: "10px", width: "300px"
+                                    }} />
                     </> :
                     <>
                         <div className="profile-details-item">
