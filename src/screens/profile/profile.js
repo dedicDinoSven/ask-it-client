@@ -9,6 +9,7 @@ import {
 import InputField from "../../components/inputField/inputField";
 import Modal from "../../components/modal/modal";
 import Button from "../../components/button/button";
+import QuestionsList from "../../components/questionsList/questionsList";
 
 const Profile = () => {
     const [data, setData] = useState({
@@ -22,10 +23,11 @@ const Profile = () => {
         password: "",
         password2: ""
     });
-
     const [toEdit, setToEdit] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [paginationState, setPaginationState] = useState(
+        { page: 1, numberOfRows: 10 });
+    const [loading, setLoading] = useState(false);
     const onChange = (e) => {
         setData(((prevState) => ({
             ...prevState,
@@ -109,6 +111,9 @@ const Profile = () => {
             <div className="profile-heading">
                 <h1>My Questions</h1> <FaQuestion />
             </div>
+            <QuestionsList paginationState={paginationState}
+                           setPaginationState={setPaginationState}
+                           loading={loading} />
         </section>
         {modalVisible &&
         <Modal close={() => setModalVisible(false)}>
