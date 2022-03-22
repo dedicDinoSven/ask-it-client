@@ -8,6 +8,7 @@ import Register from "./screens/register/register";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./screens/profile/profile";
 import CreateQuestion from "./screens/createQuestion/createQuestion";
+import QuestionPage from "./screens/questionPage/questionPage";
 
 const App = () => {
     return (
@@ -16,12 +17,14 @@ const App = () => {
                 <div className="app-wrapper">
                     <Navbar />
                     <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/create-question"
+                        <Route exact path="/" element={<Dashboard />} />
+                        <Route exact path="/login" element={<Login />} />
+                        <Route exact path="/register" element={<Register />} />
+                        <Route exact path="/profile" element={<Profile />} />
+                        <Route exact path="/create-question"
                                element={<CreateQuestion />} />
+                        <Route exact path="/question/:id"
+                               element={<QuestionPage />} />
                     </Routes>
                 </div>
             </BrowserRouter>

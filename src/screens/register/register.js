@@ -80,7 +80,7 @@ const Register = () => {
                     <p>Please create an account</p>
                 </div>
                 <Button onClick={handleSubmit} className="submit" label="Submit"
-                        style={{ marginBottom: "16px" }}
+                        style={{ marginBottom: "16px", width: "90%" }}
                         disabled={!data.email || data.email === "" ||
                         !data.password || data.password === ""
                         || !data.password2 || data.password2 === ""}

@@ -1,0 +1,23 @@
+@import "./question/index";
+@import "./answer/index";
+@import "./answerForm/index";
+
+.question-page-wrapper {
+    width: 95%;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0 20px 20px;
+
+    .question-page-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        h3 {
+            color: #555;
+        }
+    }
+}

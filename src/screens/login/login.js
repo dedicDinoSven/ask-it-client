@@ -63,7 +63,7 @@ const Login = () => {
                             onChange={onChange} />
                 <Button onClick={handleSubmit}
                         className="submit" label="Submit"
-                        style={{ width: "260px", marginTop: "16px" }}
+                        style={{ width: "93%", marginTop: "16px" }}
                         disabled={!data.email || data.email === "" ||
                         !data.password || data.password === ""} />
             </section>
