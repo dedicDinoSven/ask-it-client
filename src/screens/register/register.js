@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
-import Spinner from "../../components/spinner/spinner";
 
 const Register = () => {
     const [data, setData] = useState({
@@ -18,7 +17,7 @@ const Register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user, isLoading, isSuccess, hasError, message } = useSelector(
+    const { user, isSuccess, hasError, message } = useSelector(
         (state) => state.auth);
 
     const onChange = (e) => {
@@ -47,7 +46,7 @@ const Register = () => {
 
     }, [user, isSuccess, hasError, message, navigate, dispatch]);
 
-    return (isLoading ? <Spinner /> :
+    return (
         <>
             <section className="register-heading">
                 <h1><FaUser /> Register</h1>

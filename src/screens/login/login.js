@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { login, reset } from "../../redux/auth/authSlice";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import { FaSignInAlt } from "react-icons/fa";
 
 const Login = () => {
@@ -6,6 +10,12 @@ const Login = () => {
         email: null,
         password: null,
     });
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { user, isSuccess, hasError, message } = useSelector(
+        (state) => state.auth);
 
     const onChange = (e) => {
         setData(((prevState) => ({
@@ -16,8 +26,20 @@ const Login = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
+
+        dispatch(login(data));
     };
+
+    useEffect(() => {
+        if (hasError)
+            toast.error(message);
+
+        if (isSuccess || user)
+            navigate("/");
+
+        dispatch(reset());
+
+    }, [user, isSuccess, hasError, message, navigate, dispatch]);
 
     return (
         <>
