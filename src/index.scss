@@ -21,4 +21,9 @@ body {
         text-decoration: none;
         color: #000;
     }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 }

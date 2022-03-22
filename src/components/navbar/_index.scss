@@ -1,6 +1,6 @@
 .navbar-wrapper {
     width: 100%;
-    height: 60px;
+    height: 55px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,30 +8,49 @@
     margin-bottom: 60px;
 
     .logo {
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+        font-weight: 700;
         padding: 0 20px;
+
+        &:hover {
+            color: #e7412c;
+        }
+
+        svg {
+            width: 36px;
+            height: 36px;
+            color: #e7412c;
+            margin-left: 5px;
+
+            &:hover {
+                color: #000;
+            }
+        }
     }
 
-    ul {
+    .navbar-links-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         list-style-type: none;
         padding: 0 20px;
 
-        li {
-            margin-left: 20px;
+        .navbar-link {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            margin-left: 15px;
 
-            a {
-                display: flex;
-                align-items: center;
+            &:hover {
+                color: #e7412c;
+            }
 
-                &:hover {
-                    color: #777;
-                }
-
-                svg {
-                    margin-right: 5px;
-                }
+            svg {
+                width: 24px;
+                height: 24px;
+                margin-right: 5px;
             }
         }
     }
