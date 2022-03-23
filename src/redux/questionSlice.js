@@ -1,20 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import QuestionsApi from "../apis/questionsApi";
 import { errorHandler } from "../utils/errorHandler";
-import UsersApi from "../apis/usersApi";
 
 const initialState = {
-    users: [],
-    user: null,
+    questions: [],
+    question: null,
     isLoading: false,
     isSuccess: false,
     hasError: false,
     message: ""
 };
 
-export const getUsers = createAsyncThunk("users/getAll",
+export const createQuestion = createAsyncThunk("questions/create",
+    async (data, thunkAPI) => {
+        try {
+            const res = await QuestionsApi.createQuestion(data);
+
+            return res.data;
+        } catch (err) {
+            const message = errorHandler(err);
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    });
+
+export const getQuestions = createAsyncThunk("questions/getAll",
     async (_, thunkAPI) => {
         try {
-            const res = await UsersApi.getUsers();
+            const res = await QuestionsApi.getQuestions();
 
             return res.data;
         } catch (err) {
@@ -24,10 +37,10 @@ export const getUsers = createAsyncThunk("users/getAll",
         }
     });
 
-export const getUserById = createAsyncThunk("users/getById",
+export const getQuestionById = createAsyncThunk("questions/getById",
     async (id, thunkAPI) => {
         try {
-            const res = await UsersApi.getUserById(id);
+            const res = await QuestionsApi.getQuestionById(id);
 
             return res.data;
         } catch (err) {
@@ -37,10 +50,10 @@ export const getUserById = createAsyncThunk("users/getById",
         }
     });
 
-export const updateUser = createAsyncThunk("users/update",
+export const updateQuestion = createAsyncThunk("questions/update",
     async ({ id, data }, thunkAPI) => {
         try {
-            const res = await UsersApi.updateUser(id, data);
+            const res = await QuestionsApi.updateQuestion(id, data);
 
             return res.data;
         } catch (err) {
@@ -50,26 +63,10 @@ export const updateUser = createAsyncThunk("users/update",
         }
     });
 
-
-export const updatePassword = createAsyncThunk("users/update-password",
-    async ({ id, data }, thunkAPI) => {
-        try {
-            console.log(data);
-            const res = await UsersApi.updatePassword(id, data);
-
-            return res.data;
-        } catch (err) {
-            const message = errorHandler(err);
-
-            return thunkAPI.rejectWithValue(message);
-        }
-    });
-
-
-export const deleteUser = createAsyncThunk("users/delete",
+export const deleteQuestion = createAsyncThunk("questions/delete",
     async (id, thunkAPI) => {
         try {
-            const res = await UsersApi.deleteUser(id);
+            const res = await QuestionsApi.deleteQuestion(id);
 
             return res.data;
         } catch (err) {
@@ -79,92 +76,93 @@ export const deleteUser = createAsyncThunk("users/delete",
         }
     });
 
-export const userSlice = createSlice({
-    name: "user",
+export const questionSlice = createSlice({
+    name: "question",
     initialState,
     reducers: {
         reset: (state) => initialState
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getUsers.pending, (state) => {
+            .addCase(createQuestion.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getUsers.fulfilled, (state, action) => {
+            .addCase(createQuestion.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.hasError = false;
-                state?.users.push(action.payload);
+                state.question = action.payload;
+                state?.questions.push(action.payload);
             })
-            .addCase(getUsers.rejected, (state, action) => {
+            .addCase(createQuestion.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.hasError = true;
                 state.message = action.payload;
             })
-            .addCase(getUserById.pending, (state) => {
+            .addCase(getQuestions.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getUserById.fulfilled, (state, action) => {
+            .addCase(getQuestions.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.hasError = false;
-                state.user = action.payload;
+                state?.questions.push(action.payload);
             })
-            .addCase(getUserById.rejected, (state, action) => {
+            .addCase(getQuestions.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.hasError = true;
                 state.message = action.payload;
             })
-            .addCase(updateUser.pending, (state) => {
+            .addCase(getQuestionById.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(updateUser.fulfilled, (state, action) => {
+            .addCase(getQuestionById.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.hasError = false;
-                state.users = state.users.map((user) => {
-                    if (user.id === action.payload.id)
-                        return { ...state.user, ...action.payload };
+                state.question = action.payload;
+            })
+            .addCase(getQuestionById.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.hasError = true;
+                state.message = action.payload;
+            })
+            .addCase(updateQuestion.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(updateQuestion.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.hasError = false;
+                state.message = "";
+                state.questions = state.questions.map((question) => {
+                    if (question.id === action.payload.id)
+                        return { ...state.question, ...action.payload };
 
-                    return user;
+                    return question;
                 });
-                state.user = { ...state.user, ...action.payload };
+                state.question = { ...state.question, ...action.payload };
             })
-            .addCase(updateUser.rejected, (state, action) => {
+            .addCase(updateQuestion.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.hasError = true;
                 state.message = action.payload;
             })
-            .addCase(updatePassword.pending, (state) => {
+            .addCase(deleteQuestion.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(updatePassword.fulfilled, (state, action) => {
+            .addCase(deleteQuestion.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                state.hasError = false;
+                state.questions = state.questions.filter((question) =>
+                    question.id !== action.payload.question.id);
                 state.message = action.payload;
             })
-            .addCase(updatePassword.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = false;
-                state.hasError = true;
-                state.message = action.payload;
-            })
-            .addCase(deleteUser.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(deleteUser.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.users =
-                    state.users.filter(
-                        (user) => user.id !== action.payload.user.id);
-                state.message = action.payload;
-            })
-            .addCase(deleteUser.rejected, (state, action) => {
+            .addCase(deleteQuestion.rejected, (state, action) => {
                 state.isLoading = false;
                 state.hasError = true;
                 state.message = action.payload;
@@ -172,6 +170,6 @@ export const userSlice = createSlice({
     }
 });
 
-export const { reset } = userSlice.actions;
+export const { reset } = questionSlice.actions;
 
-export default userSlice.reducer;
+export default questionSlice.reducer;
