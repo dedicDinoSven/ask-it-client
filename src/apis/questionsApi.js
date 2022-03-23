@@ -10,7 +10,7 @@ class QuestionsApi {
     }
 
     static getQuestionById(id) {
-        return Request.get(`/question/${id}`);
+        return Request.get(`/questions/${id}`);
     }
 
     static updateQuestion(id, data) {

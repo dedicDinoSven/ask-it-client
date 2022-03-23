@@ -437,11 +437,11 @@
   justify-content: flex-start;
 }
 .question-wrapper .question-header .question-details p {
-  margin: 0 36px 0 0;
+  margin: 0 26px 0 0;
 }
 .question-wrapper .question-header .question-details p span {
   color: #555555;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 .question-wrapper .question-main {
   margin-bottom: 10px;
@@ -454,9 +454,15 @@
   display: flex;
   justify-content: space-between;
 }
+.question-wrapper .question-footer p {
+  cursor: pointer;
+}
+.question-wrapper .question-footer p:hover {
+  color: #4693f3;
+}
 .question-wrapper .question-footer p span {
   color: #555555;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 .question-wrapper .question-footer .question-ratings {
   width: 180px;
