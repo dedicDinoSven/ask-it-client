@@ -9,11 +9,11 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, reset } from "../../redux/auth/authSlice";
+import { logout, reset } from "../../redux/authSlice";
 
 const Navbar = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
+    const { userData } = useSelector((state) => state.auth);
 
     return (
         <header className="navbar-wrapper">
@@ -21,16 +21,14 @@ const Navbar = () => {
                 Ask.it <FaRegQuestionCircle />
             </Link>
             <div className="navbar-links-container">
-                {user ?
+                {userData ?
                     <>
                         <Link to="/create-question" className="navbar-link">
-                            <FaPlusCircle/> Ask Question
+                            <FaPlusCircle /> Ask Question
                         </Link>
-                        <Link to="/profile" className="navbar-link">
-                            <FaUser />
-                            {(user.firstName || user.lastName)
-                                ? (user.firstName + " " + user.lastName)
-                                : user?.email}
+                        <Link to={`/user/${userData.id}`}
+                              className="navbar-link">
+                            <FaUser /> Profile
                         </Link>
                         <Link to="/" className="navbar-link" onClick={() => {
                             dispatch(logout());

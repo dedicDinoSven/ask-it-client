@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { login, reset } from "../../redux/auth/authSlice";
+import { login, reset } from "../../redux/authSlice";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FaSignInAlt } from "react-icons/fa";
@@ -17,7 +17,7 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user, isSuccess, hasError, message } = useSelector(
+    const { userData, isSuccess, hasError, message } = useSelector(
         (state) => state.auth);
 
     const onChange = (e) => {
@@ -41,12 +41,12 @@ const Login = () => {
         if (hasError)
             toast.error(message);
 
-        if (isSuccess || user)
+        if (isSuccess || userData)
             navigate("/");
 
         dispatch(reset());
 
-    }, [user, isSuccess, hasError, message, navigate, dispatch]);
+    }, [userData, isSuccess, hasError, message, navigate, dispatch]);
 
     return (
         <div className="login-wrapper">

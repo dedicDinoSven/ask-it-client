@@ -1,49 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import jwt_decode from "jwt-decode";
+import { useParams } from "react-router";
+import { getUserById, updateUser, updatePassword } from "../../redux/userSlice";
 import {
-    FaUserCog,
-    FaQuestion,
-    FaPencilRuler,
-    FaCheck,
-    FaTimesCircle
+    FaCheck, FaPencilRuler, FaQuestion, FaTimesCircle, FaUserCog
 } from "react-icons/fa";
-import InputField from "../../components/inputField/inputField";
-import Modal from "../../components/modal/modal";
-import Button from "../../components/button/button";
 import QuestionsList from "../../components/questionsList/questionsList";
+import UpdatePasswordModal from "./updatePasswordModal/updatePasswordModal";
+import UpdateDetails from "./updateDetails/updateDetails";
+import Validation from "../../utils/validation";
+import { toast } from "react-toastify";
+import { reset } from "../../redux/authSlice";
 
 const Profile = () => {
     const [data, setData] = useState({
-        firstName: "Dino-Sven",
-        lastName: "",
-        email: "dinosven.dedic@hotmail.com",
-        numberOfQuestions: 26,
-        numberOfAnswers: 10
+        firstName: "", lastName: "", email: ""
     });
     const [passwordData, setPasswordData] = useState({
-        password: "",
-        password2: ""
+        password: "", password2: ""
     });
     const [toEdit, setToEdit] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [paginationState, setPaginationState] = useState(
         { page: 1, numberOfRows: 10 });
     const [loading, setLoading] = useState(false);
-    const onChange = (e) => {
-        setData(((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        })));
-    };
-    const onChangePasswordData = (e) => {
-        setPasswordData(((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        })));
+
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const { userData } = useSelector((state) => state.auth);
+    const { user, isSuccess, hasError, message } = useSelector(
+        (state) => state.users);
+    const decoded = jwt_decode(userData.token);
+
+    useEffect(() => {
+        dispatch(getUserById(id));
+    }, [id, dispatch, hasError, isSuccess, message]);
+
+    const handleDetailsUpdate = () => {
+        if (!Validation.validateEmail(data.email))
+            toast.error("Please enter valid email!");
+        else {
+            dispatch(updateUser({ id, data }));
+            setToEdit(false);
+        }
     };
 
-    const handlePasswordChange = () => {
+    const handlePasswordUpdate = () => {
+        if (!Validation.validatePasswordLength(passwordData.password))
+            toast.error("Password must be 5 to 100 characters long!");
 
+        else if (passwordData.password !== passwordData.password2)
+            toast.error("Passwords do not match!");
+
+        else {
+            dispatch(updatePassword({ id, data: passwordData }));
+
+
+            setModalVisible(false);
+        }
     };
+
     return (<div className="profile-wrapper">
         <section className="profile-content-left">
             <div className="profile-heading">
@@ -51,63 +68,46 @@ const Profile = () => {
             </div>
             <section className="profile-details">
                 <div className="icons-wrapper">
-                    {toEdit ?
+                    {decoded.id === parseInt(id) && (toEdit ?
                         <>
                             <FaCheck className="icon submit"
-                                     onClick={() => setToEdit(false)} />
+                                     onClick={handleDetailsUpdate} />
                             <FaTimesCircle className="icon cancel"
-                                           onClick={() => setToEdit(false)} />
+                                           onClick={() => setToEdit(
+                                               false)} />
                         </>
                         : <FaPencilRuler className="icon edit"
-                                         onClick={() => setToEdit(true)} />}
+                                         onClick={() => setToEdit(true)} />)}
                 </div>
-                {toEdit ? <>
-                        <InputField label="First Name" type="text" id="firstName"
-                                    name="firstName" value={data.firstName}
-                                    onChange={onChange} autoFocus={!!data.firstName}
-                                    style={{
-                                        marginLeft: "10px", width: "300px"
-                                    }} />
-                        <InputField label="Last Name" type="text" id="lastName"
-                                    name="lastName" value={data.lastName}
-                                    onChange={onChange} autoFocus={!!data.lastName}
-                                    style={{
-                                        marginLeft: "10px", width: "300px"
-                                    }} />
-                        <InputField label="Email" type="email" id="email"
-                                    name="email" value={data.email}
-                                    onChange={onChange} autoFocus={!!data.email}
-                                    style={{
-                                        marginLeft: "10px", width: "300px"
-                                    }} />
-                    </> :
+                {toEdit ? <UpdateDetails data={data} setData={setData} /> :
                     <>
                         <div className="profile-details-item">
                             <h2>First Name:</h2>
-                            <p>{data.firstName}</p>
+                            <p>{user?.firstName}</p>
                         </div>
                         <div className="profile-details-item">
                             <h2>Last Name:</h2>
-                            <p>{data.lastName}</p>
+                            <p>{user?.lastName}</p>
                         </div>
                         <div className="profile-details-item">
                             <h2>Email:</h2>
-                            <p>{data.email}</p>
+                            <p>{user?.email}</p>
                         </div>
                     </>}
                 <div className="border" />
                 <div className="profile-details-item">
                     <h2># of Questions:</h2>
-                    <p>{data.numberOfQuestions}</p>
+                    <p>TODO</p>
                 </div>
                 <div className="profile-details-item">
                     <h2># of Answers:</h2>
-                    <p>{data.numberOfAnswers}</p>
+                    <p>TODO</p>
                 </div>
+                {decoded.id === parseInt(id) &&
                 <div className="change-password-link"
                      onClick={() => setModalVisible(true)}>
                     Change Password
-                </div>
+                </div>}
             </section>
         </section>
         <section className="profile-content-right">
@@ -119,22 +119,10 @@ const Profile = () => {
                            loading={loading} />
         </section>
         {modalVisible &&
-        <Modal close={() => setModalVisible(false)}>
-            <h1>Password Change</h1>
-            <InputField label="Password *" type="password" id="password"
-                        name="password" value={passwordData.password}
-                        onChange={onChangePasswordData} autoFocus />
-            <InputField label=" Confirm Password *" type="password"
-                        id="password2"
-                        name="password2" value={passwordData.password2}
-                        onChange={onChangePasswordData} />
-            <Button onClick={handlePasswordChange}
-                    className="submit" label="Submit"
-                    style={{ width: "260px", marginTop: "16px" }}
-                    disabled={!passwordData.password ||
-                    passwordData.password === "" || !passwordData.password2 ||
-                    passwordData.password2 === ""} />
-        </Modal>}
+        <UpdatePasswordModal close={() => setModalVisible(false)}
+                             passwordData={passwordData}
+                             setPasswordData={setPasswordData}
+                             handlePasswordUpdate={handlePasswordUpdate} />}
     </div>);
 };
 

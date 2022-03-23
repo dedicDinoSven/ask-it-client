@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register, reset } from "../../redux/auth/authSlice";
+import { register, reset } from "../../redux/authSlice";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { FaUserPlus } from "react-icons/fa";
@@ -20,7 +20,7 @@ const Register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { user, isSuccess, hasError, message } = useSelector(
+    const { user: userData, isSuccess, hasError, message } = useSelector(
         (state) => state.auth);
 
     const onChange = (e) => {
@@ -47,12 +47,12 @@ const Register = () => {
         if (hasError)
             toast.error(message);
 
-        if (isSuccess || user)
+        if (isSuccess || userData)
             navigate("/");
 
         dispatch(reset());
 
-    }, [user, isSuccess, hasError, message, navigate, dispatch]);
+    }, [userData, isSuccess, hasError, message, navigate, dispatch]);
 
     return (
         <div className="register-wrapper">

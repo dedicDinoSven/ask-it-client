@@ -8,7 +8,7 @@ const QuestionsList = (props) => {
         <div className="questions-list">
             {dummyData.map((item) => {
                 return (
-                    <div className="questions-list-item">
+                    <div className="questions-list-item" key={item.id}>
                         <div className="questions-list-item-main">
                             <h2>{item.title}</h2>
                             <p className="questions-list-item-text">
