@@ -1,24 +1,33 @@
 import React from "react";
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
+import DateUtils from "../../../utils/dateUtils";
 
-const Answer = () => {
+const Answer = ({ data }) => {
     return (
         <div className="answer-wrapper">
             <section className="answer-main">
-                <p>{answer.text}</p>
+                <p>{data?.text}</p>
                 <div className="answer-info">
-                    <p><span>Posted</span> {answer.createdAt}</p>
-                    <p><span>Updated</span> {answer.updatedAt}</p>
+                    <p><span>Posted</span>
+                        {DateUtils.parse(data?.createdAt)}
+                    </p>
+                    <p><span>Updated</span>
+                        {DateUtils.parse(data?.updatedAt)}
+                    </p>
                 </div>
             </section>
             <section className="answer-details">
-                <p><span>Author</span> {answer.user}</p>
+                <p><span>Author</span>
+                    {(data?.user?.firstName.length > 0 || data?.user?.lastName.length > 0) ?
+                        (data?.user?.firstName + " " + data?.user?.lastName) :
+                        data?.user?.email}
+                </p>
                 <div className="answer-ratings">
                     <div className="answer-rating">
-                        <FaArrowAltCircleUp /> {answer.likes}
+                        <FaArrowAltCircleUp /> {data?.likes}
                     </div>
                     <div className="answer-rating">
-                        <FaArrowAltCircleDown /> {answer.dislikes}
+                        <FaArrowAltCircleDown /> {data?.dislikes}
                     </div>
                 </div>
             </section>
@@ -26,13 +35,3 @@ const Answer = () => {
 };
 
 export default Answer;
-
-const answer = {
-    id: "1",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam pellentesque nec nam aliquam sem et tortor consequat. Amet nisl purus in mollis nunc sed. Viverra orci sagittis eu volutpat odio. Donec et odio pellentesque diam volutpat commodo sed egestas egestas.",
-    likes: 17,
-    dislikes: 5,
-    user: "Dino-Sven",
-    createdAt: "22 Mar 2022",
-    updatedAt: ""
-};

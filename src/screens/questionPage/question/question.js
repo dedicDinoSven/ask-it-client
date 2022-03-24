@@ -25,7 +25,11 @@ const Question = ({ question }) => {
             <section className="question-footer">
                 <p onClick={() => navigate(`/user/${question?.user?.id}`)}>
                     <span>Author</span>
-                    {question?.user?.firstName + " " + question?.user?.lastName}
+                    {(question?.user?.firstName.length > 0 ||
+                        question?.user?.lastName.length > 0) ?
+                        (question?.user?.firstName + " " +
+                            question?.user?.lastName) :
+                        question?.user?.email}
                 </p>
                 <div className="question-ratings">
                     <div className="question-rating">

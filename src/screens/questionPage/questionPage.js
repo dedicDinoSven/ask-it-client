@@ -6,29 +6,55 @@ import { useDispatch, useSelector } from "react-redux";
 import Answer from "./answer/answer";
 import { useParams } from "react-router";
 import { getQuestionById } from "../../redux/questionSlice";
+import {
+    createAnswer,
+    getAnswerById,
+    getAnswersByQuestionId
+} from "../../redux/answerSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const QuestionPage = () => {
     const [formVisible, setFormVisible] = useState(false);
+    const [answer, setAnswer] = useState("");
 
     const dispatch = useDispatch();
     const { userData } = useSelector((state) => state.auth);
     const { question } = useSelector((state) => state.questions);
+    const { answers } = useSelector((state) => state.answers);
     const { id } = useParams();
 
     useEffect(() => {
         dispatch(getQuestionById(id));
+        dispatch(getAnswersByQuestionId(id));
     }, [id, dispatch]);
+    console.log(answers);
+    const handleAnswerSubmit = async () => {
+        try {
+            const res = await dispatch(createAnswer({ id, answer }));
+
+            const createdAnswer = unwrapResult(res);
+
+            setFormVisible(!formVisible);
+            setAnswer("");
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <div className="question-page-wrapper">
             <Question question={question} />
             <div className="question-page-info">
-                <h3>5 Answers</h3>
+                <h3>{answers?.length} Answers</h3>
                 <Button onClick={() => setFormVisible(!formVisible)}
                         label="Add Answer" className="submit"
                         disabled={!userData} />
             </div>
-            <AnswerForm formVisible={formVisible} />
-            <Answer />
+            <AnswerForm formVisible={formVisible} answer={answer}
+                        setAnswer={setAnswer}
+                        handleAnswerSubmit={handleAnswerSubmit} />
+            {answers?.map((item) => {
+                return <Answer key={item.id} data={item} />;
+            })}
         </div>
     );
 };
