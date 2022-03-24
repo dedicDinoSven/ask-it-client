@@ -122,7 +122,17 @@ export const answerSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.hasError = false;
-                state.answer = action.payload;
+                state.answer =
+                    {
+                        ...action.payload.answer,
+                        ratings: action.payload.ratings
+                    };
+                state.answers = state.answers.map((answer) => {
+                    if (answer.id === action.payload.answer.id)
+                        return { ...answer, ratings: action.payload.ratings };
+
+                    return answer;
+                });
             })
             .addCase(getAnswerById.rejected, (state, action) => {
                 state.isLoading = false;

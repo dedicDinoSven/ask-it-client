@@ -9,21 +9,41 @@ import {
 } from "react-icons/fa";
 import DateUtils from "../../../utils/dateUtils";
 import InputField from "../../../components/inputField/inputField";
+import { useDispatch, useSelector } from "react-redux";
+import { getAnswerById } from "../../../redux/answerSlice";
 
 const Answer = ({
-    data, userId, editAnswer, setEditAnswer,
-    handleAnswerUpdate, handleAnswerDelete
+    data, userId, editAnswer, setEditAnswer, handleAnswerUpdate,
+    handleAnswerDelete, handleAnswerRating, answerRating, setAnswerRating
 }) => {
     const [toEdit, setToEdit] = useState(false);
+    const dispatch = useDispatch();
+    const { answer } = useSelector((state) => state.answers);
 
     const prepareEdit = (id) => {
         let temp = "";
-        console.log(id);
         if (data?.id === id) temp = data?.text;
         setEditAnswer(temp);
         setToEdit(true);
     };
 
+    useEffect(() => {
+        if (answer?.ratings?.likes) {
+            answer?.ratings?.likes?.some((like) => {
+                if (like?.userId == userId)
+                    setAnswerRating(
+                        { liked: true, disliked: false, id: like?.id });
+            });
+        }
+        if (answer?.ratings?.dislikes) {
+            answer?.ratings?.dislikes?.some((dislike) => {
+                if (dislike?.userId == userId)
+                    setAnswerRating(
+                        { liked: false, disliked: true, id: dislike?.id });
+            });
+        }
+    }, [userId, answer?.ratings?.likes.length,
+        answer?.ratings?.dislikes?.length]);
     return (
         <div className="answer-wrapper">
             <section className="answer-main">
@@ -70,12 +90,19 @@ const Answer = ({
                         (data?.user?.firstName + " " + data?.user?.lastName) :
                         data?.user?.email}
                 </p>
-                <div className="answer-ratings">
-                    <div className="answer-rating">
-                        <FaArrowAltCircleUp /> {data?.likes}
+                <div className="answer-ratings"
+                     onMouseEnter={() => dispatch(getAnswerById(data?.id))}>
+                    <div className="answer-rating"
+                         onClick={() => handleAnswerRating(data?.id,
+                             answerRating?.id, 1)}>
+                        <FaArrowAltCircleUp /> {data?.ratings?.likes.length ??
+                    0}
                     </div>
-                    <div className="answer-rating">
-                        <FaArrowAltCircleDown /> {data?.dislikes}
+                    <div className="answer-rating"
+                         onClick={() => handleAnswerRating(data?.id,
+                             answerRating?.id, 0)}>
+                        <FaArrowAltCircleDown /> {data?.ratings?.dislikes.length ??
+                    0}
                     </div>
                 </div>
             </section>

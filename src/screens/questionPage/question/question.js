@@ -3,7 +3,9 @@ import { FaArrowAltCircleUp, FaArrowAltCircleDown } from "react-icons/fa";
 import DateUtils from "../../../utils/dateUtils";
 import { useNavigate } from "react-router";
 
-const Question = ({ question }) => {
+const Question = ({
+    question, handleQuestionRating, questionRating
+}) => {
     const navigate = useNavigate();
 
     return (
@@ -32,11 +34,20 @@ const Question = ({ question }) => {
                         question?.user?.email}
                 </p>
                 <div className="question-ratings">
-                    <div className="question-rating">
-                        <FaArrowAltCircleUp /> {question?.likes}
+                    <div className="question-rating" style={questionRating.liked
+                        ? { color: "#4693f3" }
+                        : { color: "#000" }}
+                         onClick={() => handleQuestionRating(question?.id,
+                             questionRating?.id, 1)}>
+                        <FaArrowAltCircleUp /> {question?.ratings?.likes.length}
                     </div>
-                    <div className="question-rating">
-                        <FaArrowAltCircleDown /> {question?.dislikes}
+                    <div className="question-rating"
+                         style={questionRating.disliked
+                             ? { color: "#e7412c" }
+                             : { color: "#000" }}
+                         onClick={() => handleQuestionRating(question?.id,
+                             questionRating?.id, 0)}>
+                        <FaArrowAltCircleDown /> {question?.ratings?.dislikes.length}
                     </div>
                 </div>
             </section>

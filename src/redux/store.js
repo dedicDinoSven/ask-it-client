@@ -9,6 +9,6 @@ export const store = configureStore({
         auth: authReducer,
         users: userReducer,
         questions: questionReducer,
-        answers: answerReducer
+        answers: answerReducer,
     }
 });
