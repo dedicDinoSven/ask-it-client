@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import QuestionsApi from "../../apis/questionsApi";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestions, getRecentQuestions } from "../../redux/questionSlice";
 import QuestionsList from "../../components/questionsList/questionsList";
 import { FaFireAlt, FaUsers, FaCalendarAlt } from "react-icons/fa";
+import { getUsers } from "../../redux/userSlice";
+import UsersList from "../../components/usersList/usersList";
 
 const Dashboard = () => {
     const [paginationState, setPaginationState] = useState(
@@ -13,14 +14,10 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const { questions, recentQuestions } = useSelector(
         (state) => state.questions);
+    const { users } = useSelector((state) => state.users);
+
     useEffect(() => {
-        const queryParams = {
-            orderBy: "title",
-            sort: "ASC",
-            limit: 10,
-            offset: 0,
-            filters: { userId: 1 }
-        };
+        dispatch(getUsers());
         setPaginationLoading(true);
         dispatch(getQuestions());
         dispatch(getRecentQuestions({
@@ -33,7 +30,9 @@ const Dashboard = () => {
     return (<div className="dashboard-wrapper">
         <section className="dashboard-content-left">
             <div className="dashboard-container">
-                <h1>Recent Questions <FaCalendarAlt /></h1>
+                <h1 className="dashboard-title">
+                    <FaCalendarAlt /> Recent Questions
+                </h1>
                 <QuestionsList hasPagination={true}
                                paginationState={paginationState}
                                setPaginationState={setPaginationState}
@@ -44,11 +43,16 @@ const Dashboard = () => {
         </section>
         <section className="dashboard-content-right">
             <div className="dashboard-container">
-                <h1>Hot Questions <FaFireAlt /></h1>
+                <h1 className="dashboard-title">
+                    <FaFireAlt /> Hot Questions
+                </h1>
                 <QuestionsList data={questions} />
             </div>
             <div className="dashboard-container">
-                <h1> Most Answers By <FaUsers /></h1>
+                <h1 className="dashboard-title">
+                    <FaUsers /> Most Answers By
+                </h1>
+                <UsersList data={users} />
             </div>
         </section>
     </div>);
