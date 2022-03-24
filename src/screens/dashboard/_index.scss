@@ -1,0 +1,30 @@
+.dashboard-wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+
+    .dashboard-content-left {
+        width: 47%;
+        margin-left: 30px;
+    }
+
+    .dashboard-content-right {
+        width: 46%;
+        margin-right: 45px;
+    }
+
+    .dashboard-container {
+        height: fit-content;
+
+        h1 {
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+            margin: 20px 0 0 0;
+            padding-left: 10px;
+            padding-bottom: 10px;
+            padding-top: 20px;
+        }
+
+    }
+}

@@ -29,7 +29,8 @@ export const getQuestions = createAsyncThunk("questions/getAll",
     async (queryParams, thunkAPI) => {
         try {
             const res = await QuestionsApi.getQuestions(queryParams?.orderBy,
-                queryParams?.sort, queryParams?.limit, queryParams?.offset);
+                queryParams?.sort, queryParams?.limit, queryParams?.offset,
+                queryParams?.filters);
             return res.data;
         } catch (err) {
             const message = errorHandler(err);
@@ -39,10 +40,10 @@ export const getQuestions = createAsyncThunk("questions/getAll",
     });
 
 export const getRecentQuestions = createAsyncThunk("questions/getRecent",
-    async (_, thunkAPI) => {
+    async ({ limit, offset, filters }, thunkAPI) => {
         try {
-            const res = await QuestionsApi.getQuestions("createdAt", "DESC", 10,
-                0);
+            const res = await QuestionsApi.getQuestions("createdAt", "DESC",
+                limit, offset, filters);
 
             return res.data;
         } catch (err) {

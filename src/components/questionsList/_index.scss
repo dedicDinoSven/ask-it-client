@@ -1,7 +1,12 @@
 .questions-list-wrapper {
+    margin-bottom: 20px;
+
     .questions-list {
         display: flex;
         flex-direction: column;
+        border: 1px solid #ccc;
+        border-top: 0;
+        border-radius: 0 0 5px 5px;
 
         .questions-list-item {
             width: 100%;
@@ -12,11 +17,11 @@
 
             .questions-list-item-main {
                 padding-left: 10px;
-                cursor: pointer;
 
                 h2 {
                     color: #4693f3;
                     margin: 10px 0 0;
+                    cursor: pointer;
                 }
 
                 .questions-list-item-text {
@@ -25,14 +30,13 @@
                 }
 
                 .questions-list-item-author {
-                    color: #ccc;
                     font-size: 12px;
-                    font-weight: 600;
+                    font-weight: 500;
                     margin: 10px 0 0;
+                    cursor: pointer;
 
                     span {
-                        color: #e7412c;
-
+                        color: #555;
                     }
                 }
             }
@@ -51,9 +55,10 @@
                     font-size: 12px;
                     text-align: right;
                     margin-top: 4px;
+                    font-weight: 600;
+
                     span {
                         color: #e7412c;
-                        font-weight: 600;
                     }
                 }
             }

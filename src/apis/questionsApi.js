@@ -5,9 +5,14 @@ class QuestionsApi {
         return Request.post("/questions", data);
     }
 
-    static getQuestions(orderBy = "id", sort = "ASC", limit = 20, offset = 0) {
+    static getQuestions(orderBy = "id", sort = "ASC", limit = 20, offset = 0,
+        filters = {}) {
+
         return Request.get("/questions",
-            { orderBy: orderBy, sort: sort, limit: limit, offset: offset });
+            {
+                orderBy: orderBy, sort: sort, limit: limit, offset: offset,
+                filters: JSON.stringify(filters)
+            });
     }
 
     static getQuestionById(id) {
