@@ -85,7 +85,8 @@ const Profile = () => {
                                                    false)} />
                             </>
                             : <FaPencilRuler className="icon edit"
-                                             onClick={() => setToEdit(true)} />)}
+                                             onClick={() => setToEdit(
+                                                 true)} />)}
                     </div>
                     {toEdit ? <UpdateDetails data={data} setData={setData} /> :
                         <>
@@ -105,11 +106,11 @@ const Profile = () => {
                     <div className="border" />
                     <div className="profile-details-item">
                         <h2># of Questions:</h2>
-                        <p>TODO</p>
+                        <p>{questions?.length}</p>
                     </div>
                     <div className="profile-details-item">
                         <h2># of Answers:</h2>
-                        <p>TODO</p>
+                        <p>{user?.answersCount}</p>
                     </div>
                     {decoded.id === parseInt(id) &&
                     <div className="change-password-link"
@@ -121,7 +122,9 @@ const Profile = () => {
         </section>
         <section className="profile-content-right">
             <div className="profile-container">
-                <h1>{decoded.id === parseInt(id) ? "My" : ""} Questions <FaQuestion /></h1>
+                <h1>{decoded.id === parseInt(id)
+                    ? "My"
+                    : ""} Questions <FaQuestion /></h1>
                 <QuestionsList hasPagination={true}
                                paginationState={paginationState}
                                setPaginationState={setPaginationState}
