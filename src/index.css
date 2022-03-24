@@ -643,6 +643,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 0 20px 20px;
+  margin-bottom: 30px;
 }
 .question-page-wrapper .question-page-info {
   display: flex;
@@ -710,8 +711,8 @@ body .app-wrapper {
   align-items: center;
   min-width: 100vw;
   width: 100vw;
-  height: 90vh;
-  margin-bottom: 50px;
+  height: 100%;
+  margin-bottom: 30px;
 }
 body a {
   text-decoration: none;

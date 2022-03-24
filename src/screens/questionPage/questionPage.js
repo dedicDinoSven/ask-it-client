@@ -46,8 +46,7 @@ const QuestionPage = () => {
 
     const handleAnswerUpdate = async (id) => {
         try {
-            const res = await dispatch(
-                updateAnswer({ id, answer: editAnswer }));
+            await dispatch(updateAnswer({ id, answer: editAnswer }));
         } catch (err) {
             console.log(err);
         }
@@ -55,7 +54,7 @@ const QuestionPage = () => {
 
     const handleAnswerDelete = async (id) => {
         try {
-            const res = await dispatch(deleteAnswer(id));
+            await dispatch(deleteAnswer(id));
         } catch (err) {
             console.log(err);
         }
