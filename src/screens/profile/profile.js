@@ -11,7 +11,6 @@ import UpdatePasswordModal from "./updatePasswordModal/updatePasswordModal";
 import UpdateDetails from "./updateDetails/updateDetails";
 import Validation from "../../utils/validation";
 import { toast } from "react-toastify";
-import { reset } from "../../redux/authSlice";
 
 const Profile = () => {
     const [data, setData] = useState({

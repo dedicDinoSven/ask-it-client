@@ -51,9 +51,9 @@ export const getAnswerById = createAsyncThunk("answers/getById",
     });
 
 export const updateAnswer = createAsyncThunk("answers/update",
-    async ({ id, data }, thunkAPI) => {
+    async ({ id, answer }, thunkAPI) => {
         try {
-            const res = await AnswersApi.updateAnswer(id, data);
+            const res = await AnswersApi.updateAnswer(id, { text: answer });
 
             return res.data;
         } catch (err) {
