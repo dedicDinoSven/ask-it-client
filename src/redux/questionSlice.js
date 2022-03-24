@@ -4,6 +4,7 @@ import { errorHandler } from "../utils/errorHandler";
 
 const initialState = {
     questions: [],
+    recentQuestions: [],
     question: null,
     isLoading: false,
     isSuccess: false,
@@ -25,10 +26,10 @@ export const createQuestion = createAsyncThunk("questions/create",
     });
 
 export const getQuestions = createAsyncThunk("questions/getAll",
-    async (_, thunkAPI) => {
+    async (queryParams, thunkAPI) => {
         try {
-            const res = await QuestionsApi.getQuestions();
-
+            const res = await QuestionsApi.getQuestions(queryParams?.orderBy,
+                queryParams?.sort, queryParams?.limit, queryParams?.offset);
             return res.data;
         } catch (err) {
             const message = errorHandler(err);
@@ -37,6 +38,19 @@ export const getQuestions = createAsyncThunk("questions/getAll",
         }
     });
 
+export const getRecentQuestions = createAsyncThunk("questions/getRecent",
+    async (_, thunkAPI) => {
+        try {
+            const res = await QuestionsApi.getQuestions("createdAt", "DESC", 10,
+                0);
+
+            return res.data;
+        } catch (err) {
+            const message = errorHandler(err);
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    });
 export const getQuestionById = createAsyncThunk("questions/getById",
     async (id, thunkAPI) => {
         try {
@@ -107,9 +121,24 @@ export const questionSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.hasError = false;
-                state?.questions.push(action.payload);
+                state.questions = action.payload;
             })
             .addCase(getQuestions.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.hasError = true;
+                state.message = action.payload;
+            })
+            .addCase(getRecentQuestions.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getRecentQuestions.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.hasError = false;
+                state.recentQuestions = action.payload;
+            })
+            .addCase(getRecentQuestions.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = false;
                 state.hasError = true;
