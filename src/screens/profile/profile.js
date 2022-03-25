@@ -76,7 +76,7 @@ const Profile = () => {
                 <h1>Profile <FaUserCog /></h1>
                 <section className="profile-details">
                     <div className="icons-wrapper">
-                        {decoded.id === parseInt(id) && (toEdit ?
+                        {decoded?.id === parseInt(id) && (toEdit ?
                             <>
                                 <FaCheck className="icon submit"
                                          onClick={handleDetailsUpdate} />
@@ -112,7 +112,7 @@ const Profile = () => {
                         <h2># of Answers:</h2>
                         <p>{user?.answersCount}</p>
                     </div>
-                    {decoded.id === parseInt(id) &&
+                    {decoded?.id === parseInt(id) &&
                     <div className="change-password-link"
                          onClick={() => setModalVisible(true)}>
                         Change Password
@@ -122,7 +122,7 @@ const Profile = () => {
         </section>
         <section className="profile-content-right">
             <div className="profile-container">
-                <h1>{decoded.id === parseInt(id)
+                <h1>{decoded?.id === parseInt(id)
                     ? "My"
                     : ""} Questions <FaQuestion /></h1>
                 <QuestionsList hasPagination={true}

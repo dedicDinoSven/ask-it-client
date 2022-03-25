@@ -26,11 +26,11 @@ class RatingsApi {
     }
 
     static updateQuestionRating(id, questionId, data) {
-        return Request.patch(`/ratings/question/${questionId}/id`, data);
+        return Request.patch(`/ratings/question/${questionId}/${id}`, data);
     }
 
     static updateAnswerRating(id, answerId, data) {
-        return Request.patch(`/ratings/answer/${answerId}/id`, data);
+        return Request.patch(`/ratings/answer/${answerId}/${id}`, data);
     }
 
     static deleteQuestionRating(id, questionId) {

@@ -7,7 +7,7 @@
   align-items: center;
   position: sticky;
   top: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #000;
   margin-bottom: 40px;
   padding: 5px;
   background-color: #fff;
@@ -48,9 +48,13 @@
   font-size: 18px;
   margin-left: 15px;
   white-space: nowrap;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 8px;
 }
 .navbar-wrapper .navbar-links-container .navbar-link:hover {
-  color: #4693f3;
+  color: #fff;
+  background-color: #000;
 }
 .navbar-wrapper .navbar-links-container .navbar-link svg {
   width: 24px;
@@ -469,6 +473,20 @@
   font-size: 20px;
   opacity: 0.7;
 }
+.login-wrapper .login-heading .login-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+  margin-bottom: 30px;
+}
+.login-wrapper .login-heading .login-link p, .login-wrapper .login-heading .login-link a {
+  font-size: 16px;
+}
+.login-wrapper .login-heading .login-link a {
+  color: #4693f3;
+  margin-left: 6px;
+}
 .login-wrapper .login-form {
   width: 50%;
   display: flex;
@@ -621,6 +639,7 @@
 }
 .question-wrapper .question-header {
   margin-bottom: 24px;
+  white-space: nowrap;
 }
 .question-wrapper .question-header h1 {
   color: #4693f3;
@@ -660,20 +679,48 @@
   margin-right: 4px;
 }
 .question-wrapper .question-footer .question-ratings {
-  width: 180px;
+  width: 140px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin-right: 6px;
 }
 .question-wrapper .question-footer .question-ratings .question-rating {
   display: flex;
   align-items: center;
   font-size: 30px;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.question-wrapper .question-footer .question-ratings .question-rating:disabled {
+  cursor: not-allowed;
 }
 .question-wrapper .question-footer .question-ratings .question-rating svg {
   width: 40px;
   height: 40px;
   margin-right: 10px;
-  margin-bottom: -6px;
+}
+@media only screen and (max-width: 500px) {
+  .question-wrapper .question-header h1 {
+    font-size: 40px;
+  }
+  .question-wrapper .question-header .question-details {
+    flex-direction: column;
+  }
+  .question-wrapper .question-header .question-details p {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+  .question-wrapper .question-footer p {
+    font-size: 15px;
+  }
+  .question-wrapper .question-footer .question-ratings .question-rating {
+    font-size: 24px;
+  }
+  .question-wrapper .question-footer .question-ratings .question-rating svg {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .answer-wrapper {
@@ -704,6 +751,9 @@
   color: #555555;
   margin-right: 6px;
 }
+.answer-wrapper .answer-main .answer-buttons {
+  display: flex;
+}
 .answer-wrapper .answer-main .answer-buttons svg {
   width: 20px;
   height: 20px;
@@ -722,20 +772,39 @@
   margin-right: 6px;
 }
 .answer-wrapper .answer-details .answer-ratings {
-  width: 160px;
+  width: 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin-right: 6px;
 }
 .answer-wrapper .answer-details .answer-ratings .answer-rating {
   display: flex;
   align-items: center;
   font-size: 22px;
+  color: #000;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.answer-wrapper .answer-details .answer-ratings .answer-rating:disabled {
+  cursor: not-allowed;
 }
 .answer-wrapper .answer-details .answer-ratings .answer-rating svg {
   width: 32px;
   height: 32px;
   margin-right: 10px;
-  margin-bottom: -8px;
+}
+.answer-wrapper:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+@media only screen and (max-width: 500px) {
+  .answer-wrapper .answer-main .answer-main-left .answer-info p {
+    font-size: 13px;
+  }
+  .answer-wrapper .answer-details p {
+    font-size: 15px;
+  }
 }
 
 .answer-form-wrapper {
@@ -771,6 +840,7 @@
 }
 @media only screen and (max-width: 768px) {
   .question-page-wrapper {
+    width: 85%;
     flex-direction: column;
   }
 }
@@ -811,6 +881,20 @@
 .register-wrapper .register-heading div p {
   font-size: 24px;
   opacity: 0.7;
+}
+.register-wrapper .register-heading .register-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  margin-bottom: 30px;
+}
+.register-wrapper .register-heading .register-link p, .register-wrapper .register-heading .register-link a {
+  font-size: 16px;
+}
+.register-wrapper .register-heading .register-link a {
+  color: #4693f3;
+  margin-left: 6px;
 }
 .register-wrapper .register-form {
   width: 45%;

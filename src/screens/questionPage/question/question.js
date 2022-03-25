@@ -4,7 +4,7 @@ import DateUtils from "../../../utils/dateUtils";
 import { useNavigate } from "react-router";
 
 const Question = ({
-    question, handleQuestionRating, questionRating
+    question, handleQuestionRating, questionRating, userId
 }) => {
     const navigate = useNavigate();
 
@@ -34,21 +34,22 @@ const Question = ({
                         question?.user?.email}
                 </p>
                 <div className="question-ratings">
-                    <div className="question-rating" style={questionRating.liked
-                        ? { color: "#4693f3" }
-                        : { color: "#000" }}
-                         onClick={() => handleQuestionRating(question?.id,
-                             questionRating?.id, 1)}>
+                    <button className="question-rating"
+                            style={questionRating.liked
+                                ? { color: "#4693f3" } : { color: "#000" }}
+                            disabled={userId && userId === question?.user?.id}
+                            onClick={() => handleQuestionRating(question?.id,
+                                questionRating?.id, 1)}>
                         <FaArrowAltCircleUp /> {question?.ratings?.likes.length}
-                    </div>
-                    <div className="question-rating"
-                         style={questionRating.disliked
-                             ? { color: "#e7412c" }
-                             : { color: "#000" }}
-                         onClick={() => handleQuestionRating(question?.id,
-                             questionRating?.id, 0)}>
+                    </button>
+                    <button className="question-rating"
+                            style={questionRating.disliked
+                                ? { color: "#e7412c" } : { color: "#000" }}
+                            disabled={userId && userId === question?.user?.id}
+                            onClick={() => handleQuestionRating(question?.id,
+                                questionRating?.id, 0)}>
                         <FaArrowAltCircleDown /> {question?.ratings?.dislikes.length}
-                    </div>
+                    </button>
                 </div>
             </section>
         </div>);

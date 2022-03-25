@@ -92,18 +92,20 @@ const Answer = ({
                 </p>
                 <div className="answer-ratings"
                      onMouseEnter={() => dispatch(getAnswerById(data?.id))}>
-                    <div className="answer-rating"
-                         onClick={() => handleAnswerRating(data?.id,
-                             answerRating?.id, 1)}>
+                    <button className="answer-rating"
+                            disabled={userId && userId === data?.user?.id}
+                            onClick={() => handleAnswerRating(data?.id,
+                                answerRating?.id, 1)}>
                         <FaArrowAltCircleUp /> {data?.ratings?.likes.length ??
                     0}
-                    </div>
-                    <div className="answer-rating"
-                         onClick={() => handleAnswerRating(data?.id,
-                             answerRating?.id, 0)}>
+                    </button>
+                    <button className="answer-rating"
+                            disabled={userId && userId === data?.user?.id}
+                            onClick={() => handleAnswerRating(data?.id,
+                                answerRating?.id, 0)}>
                         <FaArrowAltCircleDown /> {data?.ratings?.dislikes.length ??
                     0}
-                    </div>
+                    </button>
                 </div>
             </section>
         </div>);

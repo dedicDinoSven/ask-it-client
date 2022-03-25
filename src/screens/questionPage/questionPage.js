@@ -11,7 +11,6 @@ import {
     getAnswersByQuestionId,
     updateAnswer
 } from "../../redux/answerSlice";
-import { unwrapResult } from "@reduxjs/toolkit";
 import jwt_decode from "jwt-decode";
 import RatingsApi from "../../apis/ratingsApi";
 
@@ -65,19 +64,19 @@ const QuestionPage = () => {
         useEffect(() => {
             if (question?.ratings?.likes) {
                 question?.ratings?.likes?.some((like) => {
-                    if (like?.userId == decoded.id)
+                    if (like?.userId === decoded?.id)
                         setQuestionRating(
                             { liked: true, disliked: false, id: like?.id });
                 });
             }
             if (question?.ratings?.dislikes) {
                 question?.ratings?.dislikes?.some((dislike) => {
-                    if (dislike?.userId == decoded.id)
+                    if (dislike?.userId === decoded?.id)
                         setQuestionRating(
                             { liked: false, disliked: true, id: dislike?.id });
                 });
             }
-        }, [decoded.id]);
+        }, [decoded?.id]);
 
         const handleQuestionRating = async (id, ratingId, value) => {
             try {
@@ -141,7 +140,8 @@ const QuestionPage = () => {
         return (
             <div className="question-page-wrapper">
                 <Question question={question} questionRating={questionRating}
-                          handleQuestionRating={handleQuestionRating} />
+                          handleQuestionRating={handleQuestionRating}
+                          userId={decoded?.id} />
                 <div className="question-page-info">
                     <h3>{answers?.length} Answers</h3>
                     <Button onClick={() => setFormVisible(!formVisible)}
@@ -152,7 +152,7 @@ const QuestionPage = () => {
                             setAnswer={setNewAnswer}
                             handleAnswerSubmit={handleAnswerSubmit} />
                 {answers?.map((item) => {
-                    return <Answer key={item.id} data={item} userId={decoded.id}
+                    return <Answer key={item.id} data={item} userId={decoded?.id}
                                    editAnswer={editAnswer}
                                    setEditAnswer={setEditAnswer}
                                    handleAnswerUpdate={handleAnswerUpdate}

@@ -7,6 +7,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import InputField from "../../components/inputField/inputField";
 import Button from "../../components/button/button";
 import Validation from "../../utils/validation";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [data, setData] = useState({
@@ -53,16 +54,20 @@ const Login = () => {
             <section className="login-heading">
                 <h1><FaSignInAlt /> Login </h1>
                 <p>Login to start asking questions</p>
+                <div className="login-link">
+                    <p>Don't have an account?</p>
+                    <Link to="/register">Register</Link>
+                </div>
             </section>
             <section className="login-form">
                 <InputField label="Email *" type="email" id="email"
                             name="email" value={data.email}
                             onChange={onChange} autoFocus
-                            style={{ width: "100%" }}/>
+                            style={{ width: "100%" }} />
                 <InputField label="Password *" type="password" id="password"
                             name="password" value={data.password}
                             onChange={onChange}
-                            style={{ width: "100%" }}/>
+                            style={{ width: "100%" }} />
                 <Button onClick={handleSubmit}
                         className="submit" label="Submit"
                         style={{ marginTop: "16px", width: "100%" }}

@@ -7,6 +7,7 @@ import { FaUserPlus } from "react-icons/fa";
 import InputField from "../../components/inputField/inputField";
 import Button from "../../components/button/button";
 import Validation from "../../utils/validation";
+import { Link } from "react-router-dom";
 
 const Register = () => {
     const [data, setData] = useState({
@@ -86,6 +87,10 @@ const Register = () => {
                 <div>
                     <h1><FaUserPlus /> Register</h1>
                     <p>Please create an account</p>
+                    <div className="register-link">
+                        <p>Already have an account?</p>
+                        <Link to="/login">Login</Link>
+                    </div>
                 </div>
 
             </section>
