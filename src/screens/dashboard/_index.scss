@@ -1,17 +1,15 @@
 .dashboard-wrapper {
     width: 100vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 0;
 
     .dashboard-content-left {
         width: 47%;
-        margin-left: 30px;
     }
 
     .dashboard-content-right {
         width: 46%;
-        margin-right: 45px;
     }
 
     .dashboard-container {
@@ -32,5 +30,15 @@
             }
         }
 
+    }
+
+    @media only screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+
+        .dashboard-content-left, .dashboard-content-right  {
+            width: 90%;
+            margin: 0;
+        }
     }
 }

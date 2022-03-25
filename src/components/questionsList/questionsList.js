@@ -16,8 +16,8 @@ const QuestionsList = (props) => {
                                 <h2 onClick={() => navigate(
                                     `/question/${item?.id}`)}>{item?.title}</h2>
                                 <p className="questions-list-item-text">
-                                    {item?.text.length > 80
-                                        ? `${item?.text.slice(0, 76)}...`
+                                    {item?.text.length > 82
+                                        ? `${item?.text.slice(0, 82)}...`
                                         : item?.text}
                                 </p>
                                 <p className="questions-list-item-author"
@@ -34,10 +34,10 @@ const QuestionsList = (props) => {
                                 </p>
                             </div>
                             <div className="questions-list-item-stats">
-                                <div>Likes: <span>{item?.likes}</span></div>
-                                <div>Dislikes: <span> {item?.dislikes}</span>
+                                <div>Likes: <span>{123}</span></div>
+                                <div>Dislikes: <span> {67}</span>
                                 </div>
-                                <div>Answers: <span>{item.answers}</span></div>
+                                <div>Answers: <span>{3}</span></div>
                             </div>
                         </div>
                     );

@@ -57,13 +57,15 @@ const Login = () => {
             <section className="login-form">
                 <InputField label="Email *" type="email" id="email"
                             name="email" value={data.email}
-                            onChange={onChange} autoFocus />
+                            onChange={onChange} autoFocus
+                            style={{ width: "100%" }}/>
                 <InputField label="Password *" type="password" id="password"
                             name="password" value={data.password}
-                            onChange={onChange} />
+                            onChange={onChange}
+                            style={{ width: "100%" }}/>
                 <Button onClick={handleSubmit}
                         className="submit" label="Submit"
-                        style={{ width: "93%", marginTop: "16px" }}
+                        style={{ marginTop: "16px", width: "100%" }}
                         disabled={!data.email || data.email === "" ||
                         !data.password || data.password === ""} />
             </section>

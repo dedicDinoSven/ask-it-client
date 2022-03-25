@@ -73,18 +73,21 @@ const Register = () => {
                             id="password2"
                             name="password2" value={data.password2}
                             onChange={onChange} />
+                <Button onClick={handleSubmit} className="submit" label="Submit"
+                        style={{
+                            marginBottom: "16px", width: "100%"
+                        }}
+                        disabled={!data.email || data.email === "" ||
+                        !data.password || data.password === ""
+                        || !data.password2 || data.password2 === ""}
+                />
             </section>
             <section className="register-heading">
                 <div>
                     <h1><FaUserPlus /> Register</h1>
                     <p>Please create an account</p>
                 </div>
-                <Button onClick={handleSubmit} className="submit" label="Submit"
-                        style={{ marginBottom: "16px", width: "90%" }}
-                        disabled={!data.email || data.email === "" ||
-                        !data.password || data.password === ""
-                        || !data.password2 || data.password2 === ""}
-                />
+
             </section>
         </div>);
 };

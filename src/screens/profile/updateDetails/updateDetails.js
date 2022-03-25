@@ -2,7 +2,7 @@ import React from "react";
 import InputField from "../../../components/inputField/inputField";
 
 const UpdateDetails = ({ data, setData }) => {
-    const style = { marginLeft: "10px", width: "300px" };
+    const style = { marginLeft: "10px", width: "70%" };
 
     return (
         <>
