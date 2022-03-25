@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getQuestions, getRecentQuestions } from "../../redux/questionSlice";
+import {
+    getMostLikedQuestions,
+    getQuestions,
+    getRecentQuestions
+} from "../../redux/questionSlice";
 import QuestionsList from "../../components/questionsList/questionsList";
-import { FaFireAlt, FaUsers, FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaFireAlt, FaUsers } from "react-icons/fa";
 import { getUsers } from "../../redux/userSlice";
 import UsersList from "../../components/usersList/usersList";
 
@@ -12,7 +16,7 @@ const Dashboard = () => {
     const [paginationLoading, setPaginationLoading] = useState(false);
 
     const dispatch = useDispatch();
-    const { questions, recentQuestions } = useSelector(
+    const { questions, recentQuestions, mostLikedQuestions } = useSelector(
         (state) => state.questions);
     const { users } = useSelector((state) => state.users);
 
@@ -24,6 +28,7 @@ const Dashboard = () => {
             limit: paginationState?.numberOfRows,
             offset: (paginationState?.page - 1) * paginationState?.numberOfRows
         }));
+        dispatch(getMostLikedQuestions());
         setPaginationLoading(false);
     }, [dispatch, paginationState?.page, paginationState?.numberOfRows]);
 
@@ -46,7 +51,7 @@ const Dashboard = () => {
                 <h1 className="dashboard-title">
                     <FaFireAlt /> Hot Questions
                 </h1>
-                <QuestionsList data={questions} />
+                <QuestionsList data={mostLikedQuestions} />
             </div>
             <div className="dashboard-container">
                 <h1 className="dashboard-title">

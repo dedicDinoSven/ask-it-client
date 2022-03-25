@@ -15,6 +15,10 @@ class QuestionsApi {
             });
     }
 
+    static getMostLikedQuestions() {
+        return Request.get("/questions/most-liked");
+    }
+
     static getQuestionById(id) {
         return Request.get(`/questions/${id}`);
     }

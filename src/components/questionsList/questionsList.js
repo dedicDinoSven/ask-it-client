@@ -33,12 +33,11 @@ const QuestionsList = (props) => {
                                     {DateUtils.parse(item?.createdAt)}
                                 </p>
                             </div>
+                            {item?.likesCount &&
                             <div className="questions-list-item-stats">
-                                <div>Likes: <span>{123}</span></div>
-                                <div>Dislikes: <span> {67}</span>
-                                </div>
-                                <div>Answers: <span>{3}</span></div>
-                            </div>
+                                Likes:{" "}
+                                <span>{item?.likesCount}</span>
+                            </div>}
                         </div>
                     );
                 })}

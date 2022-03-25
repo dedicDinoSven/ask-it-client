@@ -5,6 +5,7 @@ import { errorHandler } from "../utils/errorHandler";
 const initialState = {
     questions: [],
     recentQuestions: [],
+    mostLikedQuestions: [],
     question: null,
     isLoading: false,
     isSuccess: false,
@@ -52,6 +53,21 @@ export const getRecentQuestions = createAsyncThunk("questions/getRecent",
             return thunkAPI.rejectWithValue(message);
         }
     });
+
+export const getMostLikedQuestions = createAsyncThunk("questions/geMostLiked",
+    async (_, thunkAPI) => {
+        try {
+            const res = await QuestionsApi.getMostLikedQuestions();
+
+            return res.data;
+        } catch (err) {
+            const message = errorHandler(err);
+
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 export const getQuestionById = createAsyncThunk("questions/getById",
     async (id, thunkAPI) => {
         try {
@@ -145,6 +161,21 @@ export const questionSlice = createSlice({
                 state.hasError = true;
                 state.message = action.payload;
             })
+            .addCase(getMostLikedQuestions.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getMostLikedQuestions.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.hasError = false;
+                state.mostLikedQuestions = action.payload;
+            })
+            .addCase(getMostLikedQuestions.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = false;
+                state.hasError = true;
+                state.message = action.payload;
+            })
             .addCase(getQuestionById.pending, (state) => {
                 state.isLoading = true;
             })
@@ -152,7 +183,7 @@ export const questionSlice = createSlice({
                 state.isLoading = false;
                 state.isSuccess = true;
                 state.hasError = false;
-                state.question ={
+                state.question = {
                     ...action.payload.question,
                     ratings: action.payload.ratings
                 };

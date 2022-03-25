@@ -253,22 +253,18 @@
   color: #555;
 }
 .questions-list-wrapper .questions-list .questions-list-item .questions-list-item-stats {
-  width: 14%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
   justify-content: center;
+  align-items: center;
   padding-right: 8px;
-}
-.questions-list-wrapper .questions-list .questions-list-item .questions-list-item-stats div {
-  width: 100%;
-  font-size: 12px;
+  font-size: 20px;
   text-align: right;
   margin-top: 4px;
   font-weight: 600;
 }
-.questions-list-wrapper .questions-list .questions-list-item .questions-list-item-stats div span {
+.questions-list-wrapper .questions-list .questions-list-item .questions-list-item-stats span {
   color: #e7412c;
+  margin-left: 6px;
 }
 @media only screen and (max-width: 640px) {
   .questions-list-wrapper .questions-list .questions-list-item .questions-list-item-main h2 {
